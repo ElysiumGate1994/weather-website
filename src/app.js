@@ -4,6 +4,9 @@ const app     = express()
 const geocode = require('./utils/geocode')
 const forcast = require('./utils/geocode')
 const hbs     = require('hbs')
+
+const port = process.env.PORT || 3000
+
 // defining path for views
 const publicDirectoryPath  = path.join( __dirname, '../public')
 const viewDirectoryPath    = path.join( __dirname, '../templates/views')
@@ -95,6 +98,6 @@ app.get('*', (req, res) => {
 })
 
 
-app.listen(3000, () => {
-    console.log('Server restart...')
+app.listen(port, () => {
+    console.log('Server start at Port : '+port)
 })
