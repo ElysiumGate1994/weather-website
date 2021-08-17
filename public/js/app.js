@@ -19,8 +19,8 @@ formData.addEventListener('submit', (e) => {
     _msg_2.textContent = ''
     
     val.length === 0? _msg_1.textContent = 'Search filed must be filled!' : ''
-    
-    fetch('http://localhost:3000/weather?address='+val).then((response) => {
+
+    fetch('/weather?address='+val).then((response) => {
         response.json().then((data) => {
             if (data.error) {
                 _msg_1.textContent = data.error
@@ -30,4 +30,15 @@ formData.addEventListener('submit', (e) => {
             }
         })
     })
+    
+    /* fetch('http://localhost:3000/weather?address='+val).then((response) => {
+        response.json().then((data) => {
+            if (data.error) {
+                _msg_1.textContent = data.error
+            } else {
+                _msg_1.textContent = data.location
+                _msg_2.textContent = data.Region
+            }
+        })
+    }) */
 })
