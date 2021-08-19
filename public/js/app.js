@@ -17,16 +17,20 @@ formData.addEventListener('submit', (e) => {
     const val = search.value;
     _msg_1.textContent = 'Loading...'
     _msg_2.textContent = ''
-    
+
     val.length === 0? _msg_1.textContent = 'Search filed must be filled!' : ''
 
     fetch('/weather?address='+val).then((response) => {
         response.json().then((data) => {
+            
             if (data.error) {
                 _msg_1.textContent = data.error
             } else {
-                _msg_1.textContent = data.location
-                _msg_2.textContent = data.Region
+                /* _msg_1.textContent = data.region
+                _msg_2.textContent = data.weather_descriptions */
+                
+                _msg_1.textContent = 'Location : ' + data.place + ', ' + data.region + ', ' + data.country
+                _msg_2.textContent = 'Weather description: Today weather is ' + data.weather_descriptions + ' and temperature is ' + data.temperature
             }
         })
     })

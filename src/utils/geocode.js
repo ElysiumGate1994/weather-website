@@ -1,27 +1,5 @@
 const request = require('request')
 
-const forcast = (late, long, callback) => {
-    
-    const url = 'http://api.weatherstack.com/current?access_key=e47c2bb66768365b2239b50b3ddca750&query='+ encodeURIComponent(late)+','+encodeURIComponent(long)+''
-
-    request({ url : url, json : true }, (error, response ) => {
-        if (error) {
-            callback('Unable to connect to the weather services!', undefined)
-        } else if (response.body.location.length === 0) {
-            callback('Unable to find the location, please search another location!', undefined)
-        } else {
-            callback(undefined, {
-                Temperature : response.body.current.temperature + '°C',
-                Current_weather : response.body.current.weather_descriptions,
-                Lat : response.body.location.lat,
-                Lon : response.body.location.lon,
-                Place  : response.body.location.name,
-                Region : response.body.location.region,
-                Country: response.body.location.country,
-            })
-        }
-    })
-}
 
 const geocode = (address, callback) => {
     const url = 'https://api.mapbox.com/geocoding/v5/mapbox.places/'+ encodeURIComponent(address) +'.json?access_token=pk.eyJ1Ijoicml5YW5tZ3IiLCJhIjoiY2tydXRwcnliMDA2aDJwcHNhbndxcG5odSJ9.UhSG6SK34Gfj-sUm25_alQ'
@@ -40,6 +18,30 @@ const geocode = (address, callback) => {
         }
     })
 }
+
+const forcast = (late, long, callback) => {
+    
+    const url = 'http://api.weatherstack.com/current?access_key=26caffb34f8fee5c3065b0b864b636ef&query='+ encodeURIComponent(late)+','+encodeURIComponent(long)+''
+
+    request({ url : url, json : true }, (error, response ) => {
+        if (error) {
+            callback('Unable to connect to the weather services!', undefined)
+        } else if (response.body.location.length === 0) {
+            callback('Unable to find the location, please search another location!', undefined)
+        } else {
+            callback(undefined, {
+                temperature : response.body.current.temperature + '°C',
+                weather_descriptions : response.body.current.weather_descriptions,
+                lat : response.body.location.lat,
+                lon : response.body.location.lon,
+                place  : response.body.location.name,
+                region : response.body.location.region,
+                country: response.body.location.country,
+            })
+        }
+    })
+}
+
 
 module.exports = {forcast, geocode}
 

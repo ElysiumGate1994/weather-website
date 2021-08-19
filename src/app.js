@@ -55,9 +55,6 @@ app.get('/home', (req, res) => {
 
 app.get('/weather', (req, res) => {
     if (!req.query.address) {
-        /* return res.send({
-            error : 'Provide search address.'
-        }) */
        return console.log('Provide search address!')
     } else {
         geocode.geocode(req.query.address, (error, { latitude, longitude } = {} ) => {
@@ -65,17 +62,17 @@ app.get('/weather', (req, res) => {
                 return res.send({ error })
             }
 
-            forcast.forcast(latitude, longitude, (error, {Current_weather, Place, Region, Country} = {} ) => {
+            forcast.forcast(latitude, longitude, (error, {temperature, weather_descriptions, place, region, country} = {} ) => {
                 if (error) {
                     return res.send({ error })
                 }
-                
-                /* console.log('Weather : '+Current_weather,' Place : '+Place,' Region : '+Region,' Country : '+Country) */
 
                 res.send({
-                    forcast : Current_weather,
-                    location: Place, Region,
-                    country : Country,    
+                    temperature,
+                    place,
+                    weather_descriptions,
+                    region,
+                    country,    
                     address : req.query.address
                 })
             })
