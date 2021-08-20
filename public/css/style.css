@@ -1,3 +1,11 @@
 p, .h1 {
     color : red
 }
+
+p {
+    color : green
+}
+
+body {
+    background-color: #000;
+}
